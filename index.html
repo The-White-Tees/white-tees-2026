@@ -80,27 +80,26 @@
         const statusMsg = document.getElementById('statusMsg');
         const submitBtn = document.getElementById('submitBtn');
 
-        form.addEventListener('submit', e => {
+form.addEventListener('submit', e => {
             e.preventDefault();
             submitBtn.disabled = true;
             submitBtn.innerHTML = "Processing...";
             statusMsg.classList.remove('hidden');
-            statusMsg.innerHTML = "Connecting to Google Sheets...";
-            statusMsg.style.color = "blue";
+            statusMsg.innerHTML = "Sending to Sheet...";
 
-            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            // This allows the data to send even if Google doesn't send a "Success" signal back
+            fetch(scriptURL, { method: 'POST', body: new FormData(form), mode: 'no-cors'})
                 .then(response => {
-                    statusMsg.innerHTML = "✅ Score Successfully Recorded!";
+                    statusMsg.innerHTML = "✅ Score Submitted! Check the Sheet.";
                     statusMsg.style.color = "green";
                     submitBtn.disabled = false;
-                    submitBtn.innerHTML = "SUBMIT ANOTHER SCORE";
+                    submitBtn.innerHTML = "SUBMIT ANOTHER";
                     form.reset();
                 })
                 .catch(error => {
-                    statusMsg.innerHTML = "❌ Error! Check connection.";
+                    statusMsg.innerHTML = "❌ Connection Error.";
                     statusMsg.style.color = "red";
                     submitBtn.disabled = false;
-                    console.error('Error!', error.message);
                 });
         });
 
