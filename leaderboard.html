@@ -3,42 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The White Tees - Live Leaderboard</title>
+    <title>The White Tees - Leaderboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .navy-bg { background-color: #001f3f; }
         .gold-border { border-color: #c5a059; }
         .gold-text { color: #c5a059; }
+        .loading-spin { animation: spin 1s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="bg-gray-50 font-sans min-h-screen">
+<body class="bg-gray-50 font-sans min-h-screen pb-12">
 
     <header class="navy-bg text-white p-6 text-center shadow-xl border-b-4 gold-border">
-        <img src="./The White tees logo.png" alt="Logo" class="mx-auto w-48 h-48 mb-42 rounded-full border-4 gold-border object-cover">
-        <h1 class="text-2xl font-bold uppercase tracking-widest">Season Standings</h1>
-        <p class="gold-text text-xs tracking-widest mt-1 uppercase">Live Rankings</p>
+        <img src="./1000052175.jpg" alt="Logo" class="mx-auto w-24 h-24 mb-2 rounded-full border-2 gold-border object-cover">
+        <h1 class="text-2xl font-bold uppercase tracking-widest text-white">Season Standings</h1>
+        <div id="statusIndicator" class="text-[10px] uppercase tracking-tighter gold-text mt-1">Live Connection Active</div>
     </header>
 
-    <main class="max-w-2xl mx-auto mt-8 px-4">
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+    <main class="max-w-2xl mx-auto mt-6 px-4">
+        <div class="flex justify-end mb-4">
+            <button onclick="loadLeaderboard()" id="refreshBtn" class="flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-gray-50 transition-all shadow-sm">
+                <span id="refreshIcon">🔄</span> Refresh Scores
+            </button>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-100">
             <table class="w-full text-left border-collapse">
-                <thead class="navy-bg text-white uppercase text-xs tracking-wider">
+                <thead class="navy-bg text-white uppercase text-[10px] tracking-[0.2em]">
                     <tr>
                         <th class="p-4">Rank</th>
-                        <th class="p-4">Team</th>
+                        <th class="p-4">Team Name</th>
                         <th class="p-4 text-right">Points</th>
                     </tr>
                 </thead>
-                <tbody id="leaderboardBody">
-                    <tr>
-                        <td colspan="3" class="p-8 text-center text-gray-400">Loading standings...</td>
-                    </tr>
-                </tbody>
+                <tbody id="leaderboardBody" class="divide-y divide-gray-50">
+                    </tbody>
             </table>
         </div>
         
         <div class="mt-8 text-center">
-            <a href="index.html" class="text-blue-900 font-bold hover:underline">← Back to Score Entry</a>
+            <a href="index.html" class="text-xs font-bold text-blue-900 hover:underline uppercase tracking-widest">← Return to Scorecard</a>
         </div>
     </main>
 
@@ -46,36 +51,54 @@
         const scriptURL = 'https://script.google.com/macros/s/AKfycbw_6WZFgFJyHKwdNxVK40BDwbIi-55xkBxUomFitL-hQfYIsujaKizjG1hr_Q2sJW87/exec';
 
         async function loadLeaderboard() {
+            const tbody = document.getElementById('leaderboardBody');
+            const btn = document.getElementById('refreshBtn');
+            const icon = document.getElementById('refreshIcon');
+            
+            // UI Feedback
+            btn.disabled = true;
+            icon.classList.add('loading-spin');
+            tbody.style.opacity = "0.5";
+
             try {
-const response = await fetch(`${scriptURL}?action=readLeaderboard`);
-        const data = await response.json();
+                // Fetch with a timestamp to prevent browser caching
+                const response = await fetch(`${scriptURL}?action=readLeaderboard&t=${new Date().getTime()}`);
+                const data = await response.json();
                 
-                const tbody = document.getElementById('leaderboardBody');
                 tbody.innerHTML = '';
 
-                data.forEach((row, index) => {
-                    const tr = document.createElement('tr');
-                    tr.className = "border-b border-gray-50 hover:bg-gray-50 transition-colors";
-                    
-                    // Highlight top 3
-                    let rankDisplay = index + 1;
-                    if(index === 0) rankDisplay = '🥇';
-                    if(index === 1) rankDisplay = '🥈';
-                    if(index === 2) rankDisplay = '🥉';
+                if (data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="3" class="p-12 text-center text-gray-400 italic">No scores recorded yet for this season.</td></tr>';
+                } else {
+                    data.forEach((row, index) => {
+                        const tr = document.createElement('tr');
+                        tr.className = "hover:bg-blue-50/30 transition-colors";
+                        
+                        let rank = index + 1;
+                        if(index === 0) rank = '🥇';
+                        if(index === 1) rank = '🥈';
+                        if(index === 2) rank = '🥉';
 
-                    tr.innerHTML = `
-                        <td class="p-4 font-bold text-gray-600">${rankDisplay}</td>
-                        <td class="p-4 font-medium">${row.team}</td>
-                        <td class="p-4 text-right font-bold text-blue-900">${row.points}</td>
-                    `;
-                    tbody.appendChild(tr);
-                });
+                        tr.innerHTML = `
+                            <td class="p-4 text-sm font-bold text-gray-400">${rank}</td>
+                            <td class="p-4 text-sm font-bold text-blue-900">${row.team}</td>
+                            <td class="p-4 text-right font-black text-blue-900">${row.points}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
             } catch (error) {
-                document.getElementById('leaderboardBody').innerHTML = '<tr><td colspan="3" class="p-8 text-center text-red-500">Failed to load leaderboard.</td></tr>';
+                console.error(error);
+                tbody.innerHTML = '<tr><td colspan="3" class="p-12 text-center text-red-400 text-xs uppercase">Connection Error. Check URL or Script Deployment.</td></tr>';
+            } finally {
+                btn.disabled = false;
+                icon.classList.remove('loading-spin');
+                tbody.style.opacity = "1";
             }
         }
 
-<a href="leaderboard.html" class="block text-center mt-4 text-sm text-blue-900 underline">View Live Leaderboard</a>
+        // Run on page load
+        loadLeaderboard();
     </script>
 </body>
 </html>
