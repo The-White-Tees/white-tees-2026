@@ -3,105 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The White Tees 2026</title>
+    <title>The White Tees Scorecard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #f4f4f2; color: #1a2b3c; font-family: 'Georgia', serif; }
-        .navy-bg { background-color: #1a2b3c; }
-        .gold-text { color: #c5a059; }
+        .navy-bg { background-color: #001f3f; }
         .gold-border { border-color: #c5a059; }
-        .btn-gold { background-color: #c5a059; color: #1a2b3c; font-weight: bold; }
-        input[type=number] { -moz-appearance: textfield; }
-        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; }
+        .gold-text { color: #c5a059; }
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
     </style>
 </head>
-<body class="pb-20">
+<body class="bg-gray-50 font-sans min-h-screen pb-12">
 
-<header class="navy-bg text-white p-6 text-center shadow-xl border-b-4 gold-border">
-    <img src="./The White tees logo.png" alt="LOGO" class="mx-auto w-48 h-48 mb-4 rounded-full border-4 gold-border object-cover shadow-2xl">
-    <h1 class="text-2xl font-bold uppercase tracking-tighter">The White Tees</h1>
-    <p class="gold-text text-xs tracking-widest mt-1">K CLUB PALMER SOUTH</p>
-</header>
+    <header class="navy-bg text-white p-8 text-center shadow-xl border-b-4 gold-border">
+        <img src="./The White tees logo.jpg" alt="Logo" class="mx-auto w-48 h-48 mb-4 rounded-full border-4 gold-border object-cover shadow-2xl">
+        <h1 class="text-3xl font-bold uppercase tracking-widest">The White Tees</h1>
+        <p class="gold-text text-sm tracking-widest mt-2 uppercase">K Club Palmer South</p>
+    </header>
 
-    <div class="max-w-md mx-auto px-4 mt-6">
-        <form id="golfForm" class="bg-white p-6 rounded-lg shadow-md border gold-border">
-            
-            <div class="grid grid-cols-2 gap-3 mb-4">
-                <div>
-                    <label class="block text-[10px] font-bold uppercase mb-1">Date Played</label>
-                    <input type="date" name="datePlayed" class="w-full p-2 border rounded text-sm" required>
+    <main class="max-w-xl mx-auto mt-8 px-4">
+        <div class="bg-white rounded-xl shadow-2xl border border-gray-100 p-6 md:p-8">
+            <form id="golfForm" class="space-y-6">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">Date Played</label>
+                        <input type="date" name="datePlayed" required class="w-full p-3 rounded border border-gray-200 focus:ring-2 focus:ring-blue-900 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">Team</label>
+                        <select name="team" required class="w-full p-3 rounded border border-gray-200 focus:ring-2 focus:ring-blue-900 outline-none bg-white">
+                            <option value="">Select Team</option>
+                            <option value="The Goat">Team 1</option>
+                            <option value="White Tee Titans">Team 2</option>
+                            <option value="The Scramblers">Team 3</option>
+                            <option value="Blancety Blank">Team 4</option>
+                            <option value="Fairway to Heaven">Team 5</option>
+                            <option value="The White Bandits">Team 6</option>
+                            <option value="The A-Team">Team 7</option>
+                            <option value="Pointy Elbows">Team 8</option>
+                        </select>
+                    </div>
                 </div>
-                <div>
-                    <label class="block text-[10px] font-bold uppercase mb-1">Team</label>
-                    <select name="team" class="w-full p-2 border rounded text-sm bg-gray-50" required>
-                        <option value="">Select Team</option>
-                        <option>The GOAT</option><option>Fairway to Heaven</option>
-                        <option>White Tee Titans</option><option>The White Bandits</option>
-                        <option>The Scramblers</option><option>The A-Team</option>
-                        <option>Blancety Blanc</option><option>Pointy Elbows</option>
-                    </select>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-            <label class="block text-xs font-bold uppercase tracking-widest mb-2">Player Name</label>
-            <input type="text" name="player" placeholder="Name" required class="w-full p-3 rounded border border-gray-200 focus:ring-2 focus:ring-blue-900 outline-none">
-        </div>
-        <div>
-            <label class="block text-xs font-bold uppercase tracking-widest mb-2">Handicap Index</label>
-            <input type="number" step="0.1" name="handicap" placeholder="e.g. 12.4" required class="w-full p-3 rounded border border-gray-200 focus:ring-2 focus:ring-blue-900 outline-none">
-        </div>
-    </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">Player Name</label>
+                        <input type="text" name="player" placeholder="Enter Name" required class="w-full p-3 rounded border border-gray-200 focus:ring-2 focus:ring-blue-900 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">Handicap Index</label>
+                        <input type="number" step="0.1" name="handicap" placeholder="e.g. 12.4" required class="w-full p-3 rounded border border-gray-200 focus:ring-2 focus:ring-blue-900 outline-none">
+                    </div>
+                </div>
 
-    <div class="pt-4 border-t border-gray-100">
-        <label class="block text-xs font-bold uppercase tracking-widest mb-4">Hole by Hole Scores</label>
-        <div class="grid grid-cols-6 gap-2 md:gap-4">
-            <script>
-                for (let i = 1; i <= 18; i++) {
-                    document.write(`
-                        <div class="text-center">
-                            <span class="text-[10px] text-gray-400 block mb-1">${i}</span>
-                            <input type="number" name="h${i}" min="1" max="15" placeholder="-" 
-                            class="w-full p-2 text-center rounded border border-gray-100 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-900 outline-none transition-all">
-                        </div>
-                    `);
-                }
-            </script>
-        </div>
-    </div>
+                <div class="pt-6 border-t border-gray-100">
+                    <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-4 text-center">Hole by Hole Scores</label>
+                    <div class="grid grid-cols-6 gap-2">
+                        <script>
+                            for (let i = 1; i <= 18; i++) {
+                                document.write(`
+                                    <div class="flex flex-col items-center">
+                                        <span class="text-[9px] text-gray-400 font-bold mb-1">${i}</span>
+                                        <input type="number" name="h${i}" min="1" max="15" required 
+                                            class="w-full p-2 text-center rounded border border-gray-100 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-900 outline-none transition-all text-sm">
+                                    </div>
+                                `);
+                            }
+                        </script>
+                    </div>
+                </div>
 
-    <button type="submit" id="submitBtn" class="w-full navy-bg text-white font-bold py-4 rounded-lg shadow-lg hover:opacity-90 transition-all uppercase tracking-widest mt-6">
-        Submit Scorecard
-    </button>
-</form>
+                <button type="submit" id="submitBtn" class="w-full navy-bg text-white font-bold py-5 rounded-lg shadow-lg hover:opacity-95 transition-all uppercase tracking-widest mt-4">
+                    Submit Scorecard
+                </button>
+            </form>
+        </div>
+    </main>
 
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbw_6WZFgFJyHKwdNxVK40BDwbIi-55xkBxUomFitL-hQfYIsujaKizjG1hr_Q2sJW87/exec';
         const form = document.getElementById('golfForm');
-        const statusMsg = document.getElementById('statusMsg');
-        const submitBtn = document.getElementById('submitBtn');
+        const btn = document.getElementById('submitBtn');
 
         form.addEventListener('submit', e => {
             e.preventDefault();
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = "Processing...";
-            
-            fetch(scriptURL, { method: 'POST', body: new FormData(form), mode: 'no-cors'})
-            .then(() => {
-                statusMsg.classList.remove('hidden');
-                statusMsg.innerHTML = "✅ Scores Submitted!";
-                statusMsg.className = "mt-4 text-center font-bold bg-green-100 text-green-700 p-3 rounded text-sm";
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = "Submit Another Round";
-                form.reset();
-            })
-            .catch(() => {
-                statusMsg.innerHTML = "❌ Error. Try again.";
-                statusMsg.className = "mt-4 text-center font-bold bg-red-100 text-red-700 p-3 rounded text-sm";
-                submitBtn.disabled = false;
-            });
+            btn.disabled = true;
+            btn.innerText = "Processing...";
+
+            const formData = new FormData(form);
+
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => {
+                    alert("Success! Your scorecard has been sent.");
+                    form.reset();
+                    btn.disabled = false;
+                    btn.innerText = "Submit Scorecard";
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    alert("Submission failed. Check your internet or Google Script URL.");
+                    btn.disabled = false;
+                    btn.innerText = "Submit Scorecard";
+                });
         });
     </script>
 </body>
 </html>
-
- 
