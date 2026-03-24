@@ -40,10 +40,10 @@
                         <option>The Scramblers</option><option>The A-Team</option>
                         <option>Blancety Blanc</option><option>Pointy Elbows</option>
                     </select>
-                </div>
-            </div>
+</div>
+    </div>
 
-<div class="pt-4 border-t border-gray-100">
+    <div class="pt-4 border-t border-gray-100">
         <label class="block text-xs font-bold uppercase tracking-widest mb-4">Hole by Hole Scores</label>
         <div class="grid grid-cols-6 gap-2 md:gap-4">
             <script>
@@ -54,28 +54,16 @@
                             <input type="number" name="h${i}" min="1" max="15" placeholder="-" 
                             class="w-full p-2 text-center rounded border border-gray-100 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-900 outline-none transition-all">
                         </div>
-            </div>
-
-            <h3 class="text-[10px] font-bold uppercase mb-2 border-b pb-1">Hole by Hole Scores</h3>
-            <div class="grid grid-cols-6 gap-2 mb-6">
-                <script>
-                    for(let i=1; i<=18; i++) {
-                        document.write(`
-                            <div class="flex flex-col items-center">
-                                <span class="text-[9px] text-gray-400 mb-1">${i}</span>
-                                <input type="number" name="h${i}" class="w-full p-1 border rounded text-center text-sm font-bold focus:border-blue-900 outline-none" placeholder="-" required>
-                            </div>
-                        `);
-                    }
-                </script>
-            </div>
-
-            <button type="submit" id="submitBtn" class="w-full btn-gold py-4 rounded shadow-md uppercase text-sm tracking-widest transition active:scale-95">
-                Submit Round
-            </button>
-        </form>
-        <div id="statusMsg" class="mt-4 text-center font-bold hidden p-3 rounded text-sm"></div>
+                    `);
+                }
+            </script>
+        </div>
     </div>
+
+    <button type="submit" id="submitBtn" class="w-full navy-bg text-white font-bold py-4 rounded-lg shadow-lg hover:opacity-90 transition-all uppercase tracking-widest mt-6">
+        Submit Scorecard
+    </button>
+</form>
 
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbw_6WZFgFJyHKwdNxVK40BDwbIi-55xkBxUomFitL-hQfYIsujaKizjG1hr_Q2sJW87/exec';
